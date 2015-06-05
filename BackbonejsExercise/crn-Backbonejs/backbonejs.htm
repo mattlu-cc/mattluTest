@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+ <head>
+  <title> Backbonejs demo by crn </title>
+  <meta name="Generator" content="EditPlus"/>
+  <meta name="Author" content=""/>
+  <meta name="Keywords" content=""/>
+  <meta name="Description" content=""/>
+  <script type="text/javascript" src="require-min.js"></script>
+  <!-- @TS3 -->
+  <!--<script type="text/javascript" src="require-min.js" data-main="crn-demo2"></script>-->
+  <!--<script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="underscore-min.js"></script>
+  <script type="text/javascript" src="backbone-min.js"></script>
+  <script type="text/javascript" src="crn-demo.js"></script>-->
+  <style type="text/css">
+  	table td,th{border:1px solid #F00}
+  </style>
+  <script type="text/javascript" language="JavaScript">
+      //@ TS1
+      /*require.config({
+          paths: {
+              "jquery": ["jquery-1.10.2.min", "http://libs.baidu.com/jquery/2.0.3/jquery"],
+              "underscore": "underscore-min",
+              "backbone": "backbone-min",
+              "crndemo": "crn-demo2"
+          }
+      });
+      require(["jquery", "underscore", "backbone"], function ($, _, Backbone) {//paramter '$' is the jquery return result
+          $(function () {
+              alert("all javascript files load finished");
+          })
+      });*/
+
+      //@ TS2
+      /*require.config({
+          shim: {
+              "crndemo": { deps: ["backbone", "underscore", "jquery"] }
+          },
+          paths: {
+              "jquery": ["jquery-1.10.2.min", "http://libs.baidu.com/jquery/2.0.3/jquery"],
+              "underscore": "underscore-min",
+              "backbone": "backbone-min",
+              "crndemo": "crn-demo2"
+          }
+      });
+      require(["crndemo"], function () {// no paramter is the crndemo no result
+          alert("'crndemo2.js' javascript files load finished");
+      });*/
+
+      //@ TS3
+      /*require.config({ 
+          shim: {
+              "crndemo": { deps: ["backbone", "underscore", "jquery"] }
+          },
+          paths: {
+              "jquery": ["jquery-1.10.2.min", "http://libs.baidu.com/jquery/2.0.3/jquery"],
+              "underscore": "underscore-min",
+              "backbone": "backbone-min",
+              "crndemo": "crn-demo2"
+          }
+      });*/
+
+      //@ TS4
+      require.config({
+          paths: {
+              "jquery": ["jquery-1.10.2.min", "http://libs.baidu.com/jquery/2.0.3/jquery"],
+              "underscore": "underscore-min",
+              "backbone": "backbone-min",
+              "crndemo": "crn-demo2"
+          }
+      });
+      require(["jquery", "underscore", "backbone"], function ($, _, Backbone) {//paramter '$' is the jquery return result
+          require(["crndemo"]);
+          $(function () {
+              alert("all javascript files load finished");
+          })
+      });
+        
+      function Rect(config){
+	        this.width = config.width;
+	        this.height = config.height;
+	        this.area = function(){   
+	            alert(11);
+	        };
+      }
+ 
+      function myRect(config){
+          //Rect.call(this,config);
+          this.name = config.name;
+          this.area = function(){
+              //这里如何调用一下父类的area方法?
+              alert(22);
+              //最终效果，是先alert(11)，然后alert(22);
+          }
+          Rect.call(this,config);
+      }
+ 
+      var a =new myRect({width:1,heigth:2,name:3});
+      //a.area();
+			
+        
+  </script>
+ </head>
+ <body>
+ 		<div id="divInputPanel">
+ 			<!--<div><span>&nbsp;UserName:</span><input type="text" id="txtUserName" placeholder="Input user name" value="陈如暖"/></div>
+ 			<br/>
+ 			<div><span>LoginName:</span><input type="text" id="txtLoginName" placeholder="Input login name" value="dragonchen"/></div>
+ 			<br/>
+ 			<div><span>&nbsp;Password:</span><input type="text" id="txtPassword" placeholder="Input password" value="crn"/></div>
+ 			<br/>
+ 			<div><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sex:</span><span id="spanSex"></span></div>
+ 			<br/>
+ 			<div><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Age:</span><input type="text" id="txtAge" placeholder="Input age" value="31"/></div>
+	 		<br/>-->
+ 			<div id="divNewUser">
+ 			</div>
+	 		<div style="padding-left:50px;">
+	 			<input type="button" value="New" id="btnNew"/>
+	 			<input type="button" value="Add" id="btnAdd"/>
+	 			<input type="button" value="Delete" id="btnDelete"/>
+	 		</div>
+	 		<br/>
+	 		<div>
+	 			<table id="tableUserList" style="width:100%;border:1px solid red;" cellspacing="0" cellpadding="0">
+	 				<thead>
+	 					<tr>
+		 					<th>Id</th>
+		 					<th>UserName</th>
+		 					<th>LoginName</th>
+		 					<th>Password</th>
+		 					<th>Sex</th>
+		 					<th>Age</th>
+		 					<th></th>
+	 					</tr>
+	 				</thead>
+	 				<tbody>
+	 				</tbody>
+	 				<tfoot>
+	 				</tfoot>
+	 			</table>
+	 		</div>
+ 			<div>
+ 				<a href="#query">query</a><br/>
+ 				<a href="#query/陈如暖">query_陈如暖</a><br/>
+ 				<a href="#query/陈如暖/2">query_陈如暖_2</a><br/>
+ 				<a href="#query2/陈如暖/p4">query_陈如暖_p4</a><br/>
+ 			</div>
+ 		</div>
+ 	<!--<option value="<%= Model.Value%>" <%= Model.Selected ? 'selected="selected"' : '' %>><%= Model.Text %></option>-->
+ 	<script type="text/template" id="sexTemplate">
+ 		<option value="<%= Value%>"><%= Text %></option>
+  	</script>
+ 	<script type="text/template" id="userTemplate">
+ 		<td><%= Id %></td>
+ 		<td><%= UserName %></td>
+ 		<td><%= LoginName %></td>
+ 		<td><%= Password %></td>
+ 		<td name="tdSexPlace"><%= Sex %></td>
+ 		<td><%= Age %></td>
+ 		<td><a href="#" class="aEdit" >Edit</a> <a href="#" class="aDel" >Delete</a></td>
+  	</script>
+  	<script type="text/template" id="newUserTemplate">
+  		<input type="hidden" id="txtId" value="<% -Id %>"/>
+  		<div><span style="padding-left:8px;">UserName:</span><input type="text" id="txtUserName" placeholder="Input user name" value="<%- UserName %>"/></div>
+ 		<br/>
+ 		<div><span>LoginName:</span><input type="text" id="txtLoginName" placeholder="Input login name" value="<%- LoginName %>"/></div>
+ 		<br/>
+ 		<div><span style="padding-left:8px;">Password:</span><input type="text" id="txtPassword" placeholder="Input password" value="<%- Password %>"/></div>
+ 		<br/>
+ 		<div><span style="padding-left:48px;">Sex:</span><span id="spanSex"></span></div>
+ 		<br/>
+ 		<div><span style="padding-left:48px;">Age:</span><input type="text" id="txtAge" placeholder="Input age" value="<%- Age %>"/></div>
+	 	<br/>
+  	</script>
+ </body>
+</html>

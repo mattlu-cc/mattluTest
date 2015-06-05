@@ -1,0 +1,344 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/mattlu.css" rel="stylesheet" />
+    <script src="~/Scripts/mattlu-js/require-min.js"></script>
+    <script type="text/javascript" language="JavaScript">
+    require.config({
+        paths: {
+            "jquery": '@Url.Content("~/Scripts/mattlu-js/jquery-1.10.2")',
+            "underscore": '@Url.Content("~/Scripts/mattlu-js/underscore")',
+            "backbone": '@Url.Content("~/Scripts/mattlu-js/backbone")',
+            "base": '@Url.Content("~/Scripts/mattlu-js/base")',
+            "browserutil":'@Url.Content("~/Scripts/mattlu-js/browser.util")',
+            "mattlu": '@Url.Content("~/Scripts/mattlu-js/mattlu")'
+            }
+        });
+        require(["jquery", "underscore", "backbone", "base", "browserutil"], function ($, _, Backbone, m) {//paramter '$' is the jquery return result
+            //require(["mattlu"]);/* 引用 mattlu.js */
+            /*加载完成*/
+            $(function () {
+                console.log("all javascript files load finished");
+                var bodyW = $("body").width();
+                var bodyH = $("body").height();
+                $('.mdTableFlex').height($(".mdTableFlex").height());
+                var maxH = bodyH - $(".mHead").height() - $(".mFooter").height() - $(".mSearch").height();
+                $('.mHeadContent').css("max-width", bodyW + "px");
+                if (Sys.safari) {
+                    $(".mItems").width(8 * 224);/*列数*每列的宽度*/
+                }
+                $(".mHead").width($('.mItems').width());
+                $(".mSearch,.mFooter").width(bodyW);
+                $('.mDataContent').css({ "max-height": maxH + "px", "width": bodyW + "px" });
+                /*行数*高度*/
+                if (($(".mItems").find(".mItem").length * 40) > $(".mDataContent").height()) {
+                    if (!isIpadOrIphoneOrAndroid()) {
+                        if (Sys.safari) {
+                            $(".mItem").find("div:last").attr("style", "border-right:none !important;");
+                        }
+                    }
+                    else {
+                        $(".mItem").find("div:last").attr("style", "border-right:none !important;");
+                    }
+                }
+                $(".mDataContent").bind("scroll", function () {
+                    var l = $(".mDataContent").scrollLeft();
+                    if (Sys.safari)
+                        $(".mHead").css({ "position": "relative", "left": -l + "px" });
+                    else
+                        $('.mHeadContent').scrollLeft(l);
+                });
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div class="mdTableFlex">
+        <div class="md-datatable">
+            <div class="mSearch">
+                <div class='searchLeft'>搜索:<input name='txtSearch' type='text' placeholder='输入搜索内容' /><div>搜索</div></div>
+                <div class="searchToolBtns">
+                    <div>添加</div>
+                    <div>修改</div>
+                    <div>删除</div>
+                </div>
+            </div>
+            <div class="mHeadContent">
+                <div class="mHead">
+                    <div><input type="checkbox" /><span class="sortHead-span"></span></div>
+                    <div>Sun(19)<span class="sortHead-span sSortDefaul"></span></div>
+                    <div>Mon(20)<span class="sortHead-span sSortDefaul"></span></div>
+                    <div>Tue(21)<span class="sortHead-span sSortDefaul"></span></div>
+                    <div>Wed(23)<span class="sortHead-span sSortAsc"></span></div>
+                    <div>Thu(24)<span class="sortHead-span sSortDesc"></span></div>
+                    <div>Fir(25)<span class="sortHead-span sSortDefaul"></span></div>
+                    <div>Sat(26)<span class="sortHead-span sSortDefaul"></span></div>
+                </div>
+            </div>
+            <div class='mDataContent'>
+                <div class='mItems'>
+                    <div class="mItem">
+                        <div style="min-width: 120px;">
+                            <a href="@Url.Action("MdDataTableDome", "Mattlu")" target="_blank">mdDataTableDome</a>
+                        </div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>1</div>
+                    </div>
+                    <div class="mItem">
+                        <div style="min-width: 120px;">
+                            1:00 2:00
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div>2</div>
+                    </div>
+                    <div class="mItem">
+                        <div style="min-width: 120px;">
+                            1:00 2:00
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div>3</div>
+                    </div>
+                    <div class="mItem">
+                        <div style="min-width: 120px;">
+                            1:00 2:00
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div>4</div>
+                    </div>
+                    <div class="mItem">
+                        <div style="min-width: 120px;">
+                            1:00 2:00
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div>5</div>
+                    </div>
+                    <div class="mItem">
+                        <div style="min-width: 120px;">
+                            1:00 2:00
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div>6</div>
+                    </div>
+                    <div class="mItem">
+                        <div style="min-width: 120px;">
+                            1:00 2:00
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div>7</div>
+                    </div>
+                    <div class="mItem">
+                        <div style="min-width: 120px;">
+                            1:00 2:00
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div>8</div>
+                    </div>
+                    <div class="mItem">
+                        <div style="min-width: 120px;">
+                            1:00 2:00
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div>9</div>
+                    </div>
+                    <div class="mItem">
+                        <div style="min-width: 120px;">
+                            1:00 2:00
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div class="mItem">
+                        <div style="min-width: 120px;">
+                            1:00 2:00
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div>9</div>
+                    </div>
+                    <div class="mItem">
+                        <div style="min-width: 120px;">
+                            1:00 2:00
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div>8</div>
+                    </div>
+                    <div class="mItem">
+                        <div style="min-width: 120px;">
+                            1:00 2:00
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div>7</div>
+                    </div>
+                    <div class="mItem">
+                        <div style="min-width: 120px;">
+                            1:00 2:00
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div>6</div>
+                    </div>
+                    <div class="mItem">
+                        <div style="min-width: 120px;">
+                            1:00 2:00
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div>5</div>
+                    </div>
+                    <div class="mItem">
+                        <div style="min-width: 120px;">
+                            1:00 2:00
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div>4</div>
+                    </div>
+                    <div class="mItem">
+                        <div style="min-width: 120px;">
+                            1:00 2:00
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div>3</div>
+                    </div>
+                    <div class="mItem">
+                        <div style="min-width: 120px;">
+                            1:00 2:00
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div>2</div>
+                    </div>
+                    <div class="mItem">
+                        <div style="min-width: 120px;">
+                            111
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div>1</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mFooter">
+                <div class="totalLeftInfo">共12条数据</div>
+                <div class="divPageBtns">
+                    <div class="divPageRp">
+                        每页
+                        <select name="selPageRp">
+                            <option>20</option>
+                            <option>60</option>
+                            <option>100</option>
+                        </select>
+                    </div>
+                    <div class="pBtns">
+                        <div class="btnPre">上一页</div>
+                        <div class="pBtnCurrent">1</div>
+                        <div>2</div>
+                        <div class="div3Point">...</div>
+                        <div>5</div>
+                        <div class="btnNext">下一页</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/template"></script>
+</body>
+</html>

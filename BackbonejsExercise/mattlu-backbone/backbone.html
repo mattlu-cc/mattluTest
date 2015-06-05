@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head><title>the5fire.com-backbone.js-Hello World</title>
+<!-- functional programming utility library -->
+<script src="underscore.js"></script>
+<!-- DOM & XHR utility -->
+<script src="jquery-1.8.0.min.js"></script>
+<!-- Backbone.js -->
+<script src="backbone.js"></script>
+<script>
+window.onload = function() {
+
+    /*****************************定义一个数据模型，相当于C#里的类*****************************/
+
+UserModel = Backbone.Model.extend({ 
+initialize:function(){
+	console.log('自带的构造函数,初始化的时候会执行，可以不写');
+},
+/*定义属性，相当于C#类中的属性,可以不定义，后面有其他方式写*/
+UserName:null,
+Pwd:null,
+/* 自定义方法
+getFullName:function(){
+        return this.get('UserName') +' '+ this.get('Pwd');
+    },
+*/
+/*属性的默认值，如果没有定义或给值，那么将使用这个来覆盖*/
+defaults:{
+	UserName:'张路',
+	Age:28,
+	Sex:'男',
+	Phone:'13205711058',
+	Address:'浙江省杭州市滨江区长河路拓森科技园3-302'
+}
+});
+    /*****************************定义结束*****************************/
+    /*extend 方法相当于C#中的继承*/
+//var user2 = userInfo.extend({
+///*重写属性或方法*/
+//});
+
+
+/*初始化，使用默认值，并用get获取值*/
+var userInfo = new UserModel();
+//alert(userInfo.get('UserName'));
+
+/*初始化，使用传值方式*/
+//var userInfo = new UserModel({UserName:'小明',Pwd:'123456'});
+//alert(userInfo.get('UserName')+"|"+userInfo.get('Pwd'));
+
+/*设置(修改)属性值*/
+//userInfo.set({UserName:'mattlu'});
+//alert(userInfo.get('UserName'));
+
+/*只要属性被更改就是True，其他是False*/
+//alert(userInfo.has('Pwd'));
+
+/*复原值，相当于设置为空，但是has返回是false*/
+//userInfo.unset('Pwd');
+//alert(userInfo.get('Pwd'));
+//alert(userInfo.has('Pwd'));
+
+/* attributes 获取全部属性对象值*/
+//console.log(userInfo.attributes); 
+
+/*删除全部属性*/
+//userInfo.clear();
+//console.log(userInfo.attributes); 
+
+/*克隆一个对象，只是一个副本也可以使用 clone方法*/
+//console.log(userInfo.toJSON()); //logs {firstName="John", lastName="Doe"}
+//console.log(userInfo.toJSON() === userInfo.attributes); //logs false
+//var tempInfo = userInfo.toJSON();
+//tempInfo.UserName = "123";
+//console.log(tempInfo);
+//console.log(userInfo.attributes);
+
+/*以下方法只是获取值，赋值没有效果，相当于只读*/
+/*返回所有属性名称的数组*/
+//console.log(userInfo.keys()); //logs ["UserName", "Pwd"...]
+
+/*返回所有属性值的数组*/
+//console.log(userInfo.values()); //logs ["xxxx", "xxx", "1-111-1111"]
+
+/*返回指定属性名称和值 */
+//console.log(userInfo.pick('Phone')); //logs {Phone="1-111-1111"}
+
+/*copy数据属性对象，返回只有Phone的Value值：*/
+//console.log(userInfo.pick('Phone').Phone);
+/*测试赋值效果 1 有效果*/
+//var ss = userInfo.pick('Phone');
+//ss.Phone = '123';
+//console.log(ss.Phone);
+
+ /*测试赋值效果 1 无效果*/
+//userInfo.pick('Phone').Phone = "456";
+//console.log(userInfo.pick('Phone').Phone);
+ /*屏蔽指定的其他属性*/
+    //console.log(userInfo.omit('UserName', 'Pwd')); // logs {Phone:"1-111-1111",Age:28,......}
+//userInfo.omit('firstName', 'lastName').phone);
+
+
+
+/*********************************************************监听事件开始*/
+UserModel2 = Backbone.Model.extend({
+    initialize: function () {
+        console.log('自带的构造函数,初始化的时候会执行，可以不写');
+        /*单一属性改变事件*/
+        //this.bind("change:Age", function () {
+        //    alert('11');
+        //    console.log(arguments);
+        //});
+        /*监控全部属性，使用hasChanged判断具体是哪个属性改变了*/
+        //this.bind("change", function () {
+        //    if (this.hasChanged("Age")) {
+        //        alert('11');
+        //        console.log(arguments);
+        //    }
+        //     if (this.hasChanged("UserName")) {
+        //        alert(2);
+        //    }
+        //});
+    },
+    defaults: {
+        UserName: '小明',
+        Age:25
+    }
+});
+
+var testUserInfo = new UserModel2();
+testUserInfo.set({ UserName: 'mattlu', Age: 32 });
+
+
+/*********************************************************验证数据以及错误提示*/
+UserModel3 = Backbone.Model.extend({
+    url:'../testUser/add',/*save时会post到这个地址,格式为{UserName:'xxx',Pwd:'xx'}*/
+    initialize: function () {
+        console.log('自带的构造函数,初始化的时候会执行，可以不写');
+        /*单一属性改变事件*/
+        this.bind("change:UserName", function () {
+            console.log(arguments);
+        });
+        //this.bind("invalid", function (model, error) {
+        //    alert(error);
+        //});
+    },
+    defaults: {
+        UserName: '小明',
+        Age: 25
+    },
+    validate: function (attributes) {
+        
+        if (attributes.UserName == '') {
+            return 'user name 不能为空！';
+        }
+    }
+});
+
+var testUserInfo1 = new UserModel3();
+testUserInfo1.set({ UserName: '', Pwd: '22' });/*不加{validate:true}  不会验证，只有save时才会触发*/
+    /*如果 set方法加了validate:true  则 isValid 方法一直返回true，isValid方法调用也可以*/
+var s = testUserInfo1.isValid();
+alert(s);
+//testUserInfo1.save();
+
+///*从服务端获取数据,数据格式和post过去的一致*/
+//testUserInfo1.fetch({
+//    url: '../testUser/getUserInfo',
+//    success: function (model, response) {
+//    },
+//    error: function () {
+//    }
+//});
+
+
+/*********************************************************************collection 集合*/
+
+UserModel4 = Backbone.Model.extend({
+    url: '../testUser/add',/*save时会post到这个地址,格式为{UserName:'xxx',Pwd:'xx'}*/
+    initialize: function () {
+        console.log('自带的构造函数,初始化的时候会执行，可以不写');
+        /*单一属性改变事件*/
+        this.bind("change:UserName", function () {
+            console.log(arguments);
+        });
+        this.bind("invalid", function (model, error) {
+            alert(error);
+        });
+    },
+    defaults: {
+        UserName: '小明',
+        Age: 25
+    },
+    validate: function (attributes) {
+        alert(attributes.UserName);
+        if (attributes.UserName == '') {
+            return 'user name 不能为空！';
+        }
+    }
+});
+
+UserModels = Backbone.Collection.extend({
+    model:UserModel4
+});
+
+var u1 = new UserModel4({ UserName: "u1" });
+var u2 = new UserModel4({ UserName: "u2" });
+var u3 = new UserModel4({ UserName: "u3" });
+
+/*添加到集合，注意使用的是数组，或者用add方式*/
+//var userInfos = new UserModels([u1,u2,u3]);
+
+var userInfos = new UserModels();
+userInfos.add(u1);
+userInfos.add(u2);
+userInfos.add(u3);
+
+/*移除*/
+userInfos.remove(u2);
+
+/*遍历集合*/
+userInfos.each(function (userInfo) {
+    console.log(userInfo.get("UserName"));
+});
+/*遍历集合第二种方式*/
+for (var i = 0; i < userInfos.length; i++) {
+    console.log(userInfos.models[i].get("UserName"));
+}
+
+/*从服务器获取数据用fetch,返回时的json也要是集合方式*/
+//userInfos.fetch({
+//    url: '', success: function (collection, response) {
+//        collection.each(function () {
+//            console.log(userInfo.get("UserName"));
+//        });
+//    }, error: function () {
+//        console.log("服务器错误");
+//    }
+//});
+
+/*reset 方法要和fetch一起使用，fetch成功后会调用 reset方法，所以需要重写*/
+    /*声明reset有两种方式，
+    1.在声明collection的时
+    UserModels = Backbone.Collection.extend({
+        model:UserModel4,
+        reset:function(){
+            console.log(this);
+        }
+    });
+*/
+/*第二种是绑定方式,最好是在fetch之前绑定*/
+//userInfos.bind("reset", function () {
+//    userInfos.each(function () {
+//        /*将用户信息渲染到页面*/
+//    });
+//});
+
+
+/*********************************************************************Router*/
+
+var appRouter = Backbone.Router.extend({
+    routes: {
+        "posts/sss/:id": "getPost",/* sss/:id 这样写也匹配不到 把最后/后面的当成参数,另外还有其他匹配模式*/
+        "*actions": "defaultRoute"/* *匹配所有url*/
+    },
+    defaultRoute: function (actions) {
+        //alert(actions);
+        console.log(actions);
+    },
+    getPost: function (id) {
+        //alert(id);
+        console.log(id);
+    }
+});
+var app_router = new appRouter();
+Backbone.history.start();
+
+
+/*********************************************************************View */
+/*定义一个view*/
+TestView = Backbone.View.extend({
+    initialize: function () {
+        console.log('view 初始化方法');
+    }
+});
+var v1 = new TestView();
+
+
+
+
+
+
+
+
+
+
+/*el属性，用来引用dom的元素，没有声明默认是一个div*/
+TestView1 = Backbone.View.extend({
+    initialize: function () {
+        console.log('view 初始化方法');
+        //this.render();
+    },
+    render: function (val) {
+        var temp = _.template($("#testTemp").html()/*,{ temp_Name:'2122' } 不会被解析*/);/*编译模板*/
+        this.$el.html(temp({ temp_Name: val }));/*加载模板到指定元素*/
+    },
+    events:{
+        /*绑定模板里的元素事件,可以绑定多个*/
+        'click input[type=button]':"clickTest"/*为模板里的btn绑定单击事件，触发clickTest函数*/
+    },
+    clickTest: function (event) {
+        alert("click: "+$("#txtVal").val());
+    }
+});
+var v2 = new TestView1({ el:$("#divA") });
+v2.render('测试模板A');/*此处可以放到view的初始化方法中*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+</script>
+
+</head>
+<body>
+<!-- 模板 -->
+<script type="text/template" id="testTemp">
+    <label><%= temp_Name %></label>
+    <input type="text" id="txtVal" />
+    <input type="button" id="btnTest" value="btnTest" />
+</script>
+    <!-- 模板 -->
+<a href="#12">test Routes</a>
+    <a href="#posts/sss/21">post12</a>
+<div id="divA"></div>
+<div id="divTemp">temptemptemp</div>
+
+http://z2009zxiaolong.iteye.com/blog/1847833
+</body>
+</html>

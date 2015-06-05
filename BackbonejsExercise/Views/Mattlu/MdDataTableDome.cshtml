@@ -1,0 +1,39 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/mattlu.css" rel="stylesheet" />
+    <script src="~/Scripts/mattlu-js/require-min.js"></script>
+    <script type="text/javascript" language="JavaScript">
+    require.config({
+        paths: {
+            "jquery": '@Url.Content("~/Scripts/mattlu-js/jquery-1.10.2")',
+            "underscore": '@Url.Content("~/Scripts/mattlu-js/underscore")',
+            "backbone": '@Url.Content("~/Scripts/mattlu-js/backbone")',
+            "base": '@Url.Content("~/Scripts/mattlu-js/base")',
+            "browserutil":'@Url.Content("~/Scripts/mattlu-js/browser.util")',
+            "mattlu": '@Url.Content("~/Scripts/mattlu-js/mattlu")'
+            }
+        });
+        require(["jquery", "underscore", "backbone", "base", "browserutil"], function ($, _, Backbone, m) {//paramter '$' is the jquery return result
+            /* 引用 mattlu.js */
+            require(["mattlu"], function () {
+                /*加载完成*/
+                $("#mdDataTable").mdDataTable();
+            });
+            /*加载完成*/
+            $(function () {});
+        });
+
+    </script>
+</head>
+<body>
+    <div id="mdDataTable" class="mdTableFlex"></div>
+</body>
+</html>

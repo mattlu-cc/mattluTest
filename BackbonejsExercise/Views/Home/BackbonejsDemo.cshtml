@@ -1,0 +1,94 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BackbonejsDemo</title>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/underscore.js"></script>
+    <script src="~/Scripts/backbone.js"></script>
+    <script src="~/Scripts/Demo.js"></script>
+</head>
+<body>
+    <div id="divPanel">
+        <!--UserList-->
+        <div>
+            <table id="tabUserList" style="width:100%;border:1px solid yellowgreen;">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>UserName</td>
+                        <td>Password</td>
+                        <td>Sex</td>
+                        <td>Age</td>
+                        <td>Hobby</td>
+                    </tr>
+                </thead>
+                <tbody id="tbodyList"></tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
+        <!--UserContent-->
+        @*<div style="padding-top:30px;">
+            <div>
+                <span>UserName:</span><input type="text" id="txtUserName" placeholder="Please Input UserName" value="zhangsan" />
+            </div><br />
+            <div>
+                <span>Password:</span><input type="password" id="txtPassword" placeholder="Please Input Password" value="nicaicai" />
+            </div><br />
+            <div>
+                <span>&nbsp;&nbsp;Sex:</span><span id="spanSex"></span>
+            </div><br />
+            <div>
+                <span>&nbsp;&nbsp;Age:</span><input type="text" id="txtAge" placeholder="Please Input Age" value="15" />
+            </div><br />
+            <div>
+                <span>&nbsp;Hobby:</span><span id="spanHobby"></span>
+            </div>
+        </div>*@
+        <div id="divNewUser">
+
+        </div>
+        <div>
+            <input type="button" value="New" id="btnNew" />
+        </div>
+    </div>
+
+    <script type="text/template" id="sexTemplate">
+        <option value="<%=Value%>"><%=Text%></option>
+    </script>
+
+    <script type="text/template" id="userlistTemplate">
+        <td><%=ID%></td>
+        <td><%=UserName%></td>
+        <td><%=Password%></td>
+        <td name="tdSexReplace"><%=Sex%></td>
+        <td><%=Age%></td>
+        <td><%=Hobby%></td>
+    </script>
+
+    <script type="text/template" id="newuserTemplate">
+        <input type="hidden" id="txtID" value="<%-ID%>" />
+        <div>
+            <span>UserName:</span><input type="text" id="txtUserName" placeholder="Please Input UserName" value="<%-UserName%>" />
+        </div><br />
+        <div>
+            <span>Password:</span><input type="password" id="txtPassword" placeholder="Please Input Password" value="<%-Password%>" />
+        </div><br />
+        <div>
+            <span>&nbsp;&nbsp;Sex:</span><span id="spanSex"></span>
+        </div><br />
+        <div>
+            <span>&nbsp;&nbsp;Age:</span><input type="text" id="txtAge" placeholder="Please Input Age" value="<%-Age%>" />
+        </div><br />
+        <div>
+            <span>&nbsp;Hobby:</span><span id="spanHobby"></span>
+        </div>
+    </script>
+</body>
+</html>

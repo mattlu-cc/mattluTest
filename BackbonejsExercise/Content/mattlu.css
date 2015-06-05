@@ -1,0 +1,184 @@
+﻿body, html {
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    margin:0px;
+    padding:0px;
+}
+.mdTableFlex {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: flex-start;
+    height: 100%;
+    width:100%;
+    background:#fff;
+    border: 1px solid #e0e0e0;
+}
+.md-datatable {
+    flex: 1 1 auto;
+    justify-content: flex-start;
+    width: auto;
+    height: 100%;
+}
+/*top搜索相关*/
+.mSearch {
+    width:100%;
+    height:35px;
+    position:relative;
+}
+.searchLeft {
+    position:absolute;
+    left:2px;
+    width:280px;
+}
+.searchLeft div{
+    display:inline-block;
+}
+/*搜索右边按钮部分*/
+.searchToolBtns {
+    position:absolute;
+    right:8px;
+}
+.searchToolBtns div{
+    width:40px;
+    height:25px;
+    line-height:25px;
+    cursor:pointer;
+    /*display:inline-block;*/
+    float:right;
+    text-align:center;
+    vertical-align:middle;
+    background-color:#e0e0e0;
+    margin-left: 10px;
+}
+/*表格部分*/
+.mDataContent {
+    overflow: auto;
+    max-height: 100%;
+    border: none !important;
+}
+/*表头部分*/
+.mHeadContent {
+    overflow: hidden;
+    height: 40px;
+    border: none !important;
+}
+
+.mHead {
+    background-color: #d9544f;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    height: 40px;
+}
+
+.mHead div {
+    border-right: none !important;
+    float: left;
+    justify-content: flex-start;
+    width: 220px;  
+    height: 40px;
+    position: relative;
+    cursor:pointer;
+}
+/*排序部分*/
+.sortHead-span {
+    position: absolute;
+    right: 1px;
+    width: 19px;
+    height: 38px;
+    background-repeat:no-repeat;
+    display:none;
+}
+.sSortDefaul {
+    background-image: url('../images/sort1.png');
+    display:inline-block;
+}
+.sSortAsc {
+    background-image: url('../images/sort-asc.png');
+    display:inline-block;
+}
+.sSortDesc {
+    background-image: url('../images/sort-desc.png');
+    display:inline-block;
+}
+
+/*表格数据*/
+.mItems {
+    order: 2;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: flex-start;
+    align-self: auto;
+    float: left;
+    width: 100%;
+}
+
+.mItem {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 40px;
+    justify-content: flex-start;
+    border-bottom: 1px solid #d8d1d1;
+}
+
+.mItem div {
+    float: left;
+    width: 220px;
+    height: 40px;
+    border-right: 1px solid #d8d1d1;
+    display:block;
+    white-space:nowrap; 
+    overflow:hidden; 
+    text-overflow:ellipsis;
+}
+/*页脚部分*/
+.mFooter {
+    order: 3;
+    flex: 0 1 auto;
+    align-self: auto;
+    min-width: 100%;
+    height: 45px;
+    text-align: right;
+    position:relative;
+}
+/*分页相关*/
+.totalLeftInfo {
+    position: absolute;
+    left: 1px;
+}
+/*页码部分*/
+.divPageBtns {
+    max-width:550px;
+    position: absolute;
+    right:10px;
+}
+.divPageBtns div {
+    display: inline-block;
+    cursor: pointer;
+    font-size:9pt;
+}
+.pBtns div{
+    width:35px;
+    height:35px;
+    line-height:35px;
+    text-align:center;
+    vertical-align:middle;
+    background-color:#d8d1d1;
+}
+.div3Point {    
+    background-color:#fff !important;
+    width:10px !important;
+    font-size:3pt;
+}
+.pBtns div:hover{
+    background-color:#808080;
+}
+.btnPre,.btnNext{
+    width:60px !important;
+}
+.pBtnCurrent {
+    background-color:#ff006e !important;
+}
