@@ -18,7 +18,8 @@ MdDataTable.GlobalObject = {
         asc: "sSortAsc",
         desc: "sSortDesc",
         AscKey: "asc",
-        DescKey:"desc"
+        DescKey: "desc"
+
     },
     AlertMsg: {
         EditOne: "请选择一项进行编辑!",
